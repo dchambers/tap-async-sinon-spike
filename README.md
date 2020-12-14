@@ -1,5 +1,7 @@
 # Controlling time with Tap & Tape
 
+⚠️ Based on this stand-alone spike code code I'm no longer seeing the issue where `tickAsync` was firing timers prematurely. I therefore need to investigate whether that was an environmental problem or not, since otherwise `tickAsync` is a perfect solution, and there's nothing to see here.
+
 ## Promises
 
 Tap and Tape are just Node.js libraries. The main promise libraries are scheduled on Node.js as follows:
@@ -20,6 +22,6 @@ Of these options, polyfill promises with an extra millisecond wait is by far the
 
 ## Async / Await
 
-Node.js's native `async` / `await` implementation uses a private copy of `global.Promise` that can not be patched from within a test. This can be solved by using either `ts-node` or `babel-node` (provided `@babel/plugin-transform-async-to-generator` is enabled) to run your tests since the `async` / `await` implementations provided by these transpilers is patchable.
+Node.js's native `async` / `await` implementation uses a private copy of `global.Promise` that can't be patched from within a test. This can be solved by using either `ts-node` or `babel-node` (provided `@babel/plugin-transform-async-to-generator` is enabled) to run your tests since the `async` / `await` implementations provided by these transpilers is patchable.
 
 However, the generator code that `async` / `await` is transpiled to requires yet more promises to be resolved behind the scenes, which means yet more in-tick `setImmediate` invocations. The net effect being that you must wait 3ms for awaited promises as opposed to 1ms for promises resolved without `async` / `await`.
