@@ -1,6 +1,6 @@
 # Controlling time with Tap & Tape
 
-⚠️ Based on this stand-alone spike code code I'm no longer seeing the issue where `tickAsync` was firing timers prematurely. I therefore need to investigate whether that was an environmental problem or not, since otherwise `tickAsync` is a perfect solution, and there's nothing to see here.
+⚠️ Based on this stand-alone spike code code I'm not seeing the issue where `tickAsync` fails to fire correctly. However, I do still see this in more complex production code, so this simplified example is currently too simple to capture that issue, and for the code in this repo, as it stands, `tickAsync` is actually the best solution.
 
 ## Promises
 
